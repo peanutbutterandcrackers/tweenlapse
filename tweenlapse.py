@@ -18,32 +18,13 @@ image_sequence = glob.glob(image_file_pattern) # List of images in the current d
 min_val = 0
 max_val = len(image_sequence) - 1
 
-ultra_seq = image_sequence[max_val+1:] # List of images from the sequence higher than the specified 'max_val'
-ultra_seq_max_val = len(ultra_seq) - 1
-infra_seq = image_sequence[:min_val] # List of images from the image sequence lower than the specified 'min_val' 
-infra_seq_max_val = len(infra_seq) - 1
-
 tweened_sequence = []
 
 for i in range(total_animation_frames):
 	tween_progress = i / total_animation_frames
 	tween_value = pytweening.easeInOutCirc(tween_progress)	
 	adjusted_tween_value = (tween_value * max_val) + min_val # The tween value adjusted to the required range
-	if adjusted_tween_value < min_val:
-		# Calculate the difference between the initial tween_value (always 0.0; because maths) and the current one
-		# Adjust that to the infra_sequence and get the required tween_frame
-		delta_tween_val = tween_value
-		readjusted_tween_value = (abs(delta_tween_val) * infra_seq_max_val)
-		tween_frame = infra_seq[-round(readjusted_tween_value)]
-	elif adjusted_tween_value > max_val:
-		# Calculate the difference between the final tween_value (always 1.0; because maths) and the current one 
-		# Adjust that to the ultra_sequence and get the required tween_frame
-		delta_tween_val = tween_value - 1.0
-		readjusted_tween_value = (delta_tween_val * ultra_seq_max_val)
-		tween_frame = ultra_seq[round(readjusted_tween_value)]
-	else:
-		# min_val <= adjusted_tween_value <= max_val
-		tween_frame = image_sequence[round(adjusted_tween_value)]
+	tween_frame = image_sequence[round(adjusted_tween_value)]
 	tweened_sequence.append(tween_frame)
 
 for i in range(len(tweened_sequence)):
