@@ -3,7 +3,7 @@
 import pytweening
 import glob, os, shutil
 
-image_file_pattern = '*.jpg'
+image_file_pattern = '*.png'
 total_animation_frames = 70 # The number of frames to complete the animation in
 output_dir_name = 'tweened_images'
 
@@ -11,6 +11,7 @@ image_extension = image_file_pattern.split('.')[-1]
 os.mkdir(output_dir_name)
  
 image_sequence = glob.glob(image_file_pattern) # List of images in the current directory
+image_sequence.sort()
 
 # The INDEX of the minimum and maximum value of the property being tweened
 # Here, the 'min_val' is the first frame of the image sequence, which is at index 0
