@@ -24,7 +24,7 @@ tweened_sequence = []
 for i in range(total_animation_frames):
 	tween_progress = i / total_animation_frames
 	tween_value = pytweening.easeInOutCirc(tween_progress)	
-	adjusted_tween_value = (tween_value * max_val) + min_val # The tween value adjusted to the required range
+	adjusted_tween_value = (tween_value * (max_val - min_val)) + min_val # The tween value adjusted to the required range
 	tween_frame = image_sequence[round(adjusted_tween_value)]
 	tweened_sequence.append(tween_frame)
 
